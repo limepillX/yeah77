@@ -1,0 +1,37 @@
+<title>Главная</title>
+<div style="margin-left: 5%; margin-top: 2%">
+    <form id="form-container" method="post">
+    {% csrf_token %}
+        <div class="main-form">
+            {{form.as_p}}
+        </div>
+        <button id="add-form" type="button" style="font-size: 25px">Добавить input</button>
+        <button type="submit" style="font-size: 25px">Сохранить в БД</button>
+    </form>
+<p></p>
+        <p>
+        <a href="{%url 'list'%}"><button style="font-size: 25px">Показать записи</button></a>
+</div>
+
+ <script>
+        let Form = document.querySelectorAll(".main-form")
+        let container = document.querySelector("#form-container")
+        let addButton = document.querySelector("#add-form")
+        let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+
+        let formNum = Form.length-1
+        addButton.addEventListener('click', addForm)
+
+        function addForm(e){
+            e.preventDefault()
+
+            let newForm = Form[0].cloneNode(true)
+            let formRegex = RegExp(`form-(\\d){1}-`,'g')
+
+            formNum++
+            newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+            container.insertBefore(newForm, addButton)
+
+            totalForms.setAttribute('value', `${formNum+1}`)
+        }
+    </script>

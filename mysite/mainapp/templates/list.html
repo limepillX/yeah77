@@ -1,0 +1,10 @@
+    <title>list</title>
+{% if alldata %}
+
+{% for d in alldata %}
+<h2>{{d.name}}</h2>
+{% endfor %}
+
+{% else %}
+<h1>Записей нет</h1>
+{% endif %}
